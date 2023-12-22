@@ -63,25 +63,29 @@ fun NoteScreen() {
         Column {
             TextField(
                 value = price.value,
-                onValueChange = { price.value = it}
+                onValueChange = { price.value = it},
+                modifier = Modifier.padding(10.dp)
             )
             TextField(
                 value = category.value,
-                onValueChange = { category.value = it}
+                onValueChange = { category.value = it},
+                modifier = Modifier.padding(10.dp)
             )
             Button(
                 modifier = Modifier
-                    .padding(16.dp),
+                    .padding(10.dp),
                 onClick = {
-                    // Создание новой записи
-                    val newNote = Note(
-                        id = notes.size + 1,
-                        price = price.value,
-                        category = category.value
-                    )
-                    notes.add(newNote)
-                    price.value = ""
-                    category.value = ""
+                    if(price.value != "" &&  category.value != "") {
+                        // Создание новой записи
+                        val newNote = Note(
+                            id = notes.size + 1,
+                            price = price.value,
+                            category = category.value
+                        )
+                        notes.add(newNote)
+                        price.value = ""
+                        category.value = ""
+                    }
                 }
             ) {
                 Text("Создать запись", fontSize = 32.sp)
@@ -100,8 +104,16 @@ fun NoteScreen() {
                 .width(100.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically){
-                Text(text = note.price,  fontSize = 16.sp)
-                Text(text = note.category,  fontSize = 16.sp)
+                Text(
+                    text = note.price,
+                    fontSize = 16.sp,
+                    modifier = Modifier.padding(10.dp)
+                )
+                Text(
+                    text = note.category,
+                    fontSize = 16.sp,
+                    modifier = Modifier.padding(10.dp)
+                )
                 Button(
                     modifier = Modifier.padding(16.dp),
                     onClick = {
